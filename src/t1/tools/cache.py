@@ -1,9 +1,9 @@
-from src.tools.schema.cache import (
+from t1.tools.schema.cache import (
     GetCacheInputModel,
     GetCacheOutputModel,
     SaveCacheInputModel,
 )
-from src.tools.schema.search_output import SearchResultsOutputModel
+from t1.tools.schema.search_output import SearchResultsOutputModel
 
 cache = {}
 

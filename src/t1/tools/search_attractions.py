@@ -3,8 +3,8 @@ from datetime import datetime
 
 import pandas as pd
 
-from src.tools.schema.search_attractions import SearchAttractionsInputModel
-from src.tools.schema.search_output import SearchResultsOutputModel
+from t1.tools.schema.search_attractions import SearchAttractionsInputModel
+from t1.tools.schema.search_output import SearchResultsOutputModel
 
 all_attractions_df = pd.read_csv(os.getenv("ALL_ATTRACTIONS"))
 

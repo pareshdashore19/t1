@@ -4,8 +4,8 @@ from datetime import datetime
 
 import pandas as pd
 
-from src.tools.schema.filter_attractions import FilterAttractionsInputModel
-from src.tools.schema.search_output import SearchResultsOutputModel
+from t1.tools.schema.filter_attractions import FilterAttractionsInputModel
+from t1.tools.schema.search_output import SearchResultsOutputModel
 
 
 def summarize_query(search_input_filtered):

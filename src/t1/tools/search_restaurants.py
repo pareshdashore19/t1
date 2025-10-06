@@ -4,8 +4,8 @@ from datetime import datetime
 import pandas as pd
 
 from data.ontology.restaurant import DIETARY_OPTIONS
-from src.tools.schema.search_output import SearchResultsOutputModel
-from src.tools.schema.search_restaurants import SearchRestaurantsInputModel
+from t1.tools.schema.search_output import SearchResultsOutputModel
+from t1.tools.schema.search_restaurants import SearchRestaurantsInputModel
 
 all_restaurants_df = pd.read_csv(os.getenv("ALL_RESTAURANTS"))
 

@@ -2,8 +2,8 @@ import os
 
 import pandas as pd
 
-from src.tools.schema.find_nearest import FindNearestInputModel
-from src.tools.schema.search_output import SearchResultsOutputModel
+from t1.tools.schema.find_nearest import FindNearestInputModel
+from t1.tools.schema.search_output import SearchResultsOutputModel
 
 HOTEL_ATTRACTIONS = os.getenv("HOTEL_ATTRACTIONS")
 HOTEL_RESTAURANTS = os.getenv("HOTEL_RESTAURANTS")

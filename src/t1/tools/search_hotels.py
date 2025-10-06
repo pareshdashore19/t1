@@ -3,8 +3,8 @@ from datetime import datetime
 
 import pandas as pd
 
-from src.tools.schema.search_hotels import SearchHotelsInputModel
-from src.tools.schema.search_output import SearchResultsOutputModel
+from t1.tools.schema.search_hotels import SearchHotelsInputModel
+from t1.tools.schema.search_output import SearchResultsOutputModel
 
 all_hotels_df = pd.read_csv(os.getenv("ALL_HOTELS"))
 all_hotels_df["start_date_available"] = pd.to_datetime(

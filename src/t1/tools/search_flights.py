@@ -3,8 +3,8 @@ from datetime import datetime
 
 import pandas as pd
 
-from src.tools.schema.search_flights import SearchFlightsInputModel
-from src.tools.schema.search_output import SearchResultsOutputModel
+from t1.tools.schema.search_flights import SearchFlightsInputModel
+from t1.tools.schema.search_output import SearchResultsOutputModel
 
 all_flights_df = pd.read_csv(os.getenv("ALL_FLIGHTS"))
 all_flights_df["departure_time"] = pd.to_datetime(

@@ -7,7 +7,7 @@ import warnings
 from pathlib import Path
 from typing import Dict, List, Tuple, Optional, Any
 
-#from eiffel import EiffelClient
+# from eiffel import EiffelClient
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from transformers.models.auto import tokenization_auto
 from tqdm.contrib.concurrent import thread_map
@@ -23,14 +23,14 @@ from t1.tools.cache import (
     retrieve_ground_truth_cache,
 )
 
-#from vllm import LLM, SamplingParams
+# from vllm import LLM, SamplingParams
 from transformers import AutoTokenizer
 
 # model = LLM(
 #     "/home/jovyan/llm-experiments-no-cache/model_zoo/simplescaling_s1.1-32B",
 #     tensor_parallel_size=8,
 # )
-#tok = AutoTokenizer.from_pretrained("/home/jovyan/llm-experiments-no-cache/model_zoo/simplescaling_s1.1-32B")
+# tok = AutoTokenizer.from_pretrained("/home/jovyan/llm-experiments-no-cache/model_zoo/simplescaling_s1.1-32B")
 
 stop_token_ids = [0]
 
@@ -48,7 +48,11 @@ from t1.tools.search_hotels import search_hotels
 from t1.tools.search_restaurants import search_restaurants
 from t1.tools.sort_results import sort_results
 from t1.tools.utils.get_tool_configurations import configure_tools_definitions
-from t1.planner.planner_code import plan_generation,make_reasoning_prompt,get_batch_results
+from t1.planner.planner_code import (
+    plan_generation,
+    make_reasoning_prompt,
+    get_batch_results,
+)
 from t1.evaluation.eval_metrics import (
     extract_tool_calls,
     count_tool_usage,
@@ -283,7 +287,7 @@ def process_first_pass(data: pd.DataFrame) -> pd.DataFrame:
                 current_turn_cache  # Cache just before execution of ground truth code
             )
             row_dict["cache_check"] = get_cache(current_cache_full_obj)
-            row_dict["role"]=role
+            row_dict["role"] = role
 
             new_column_values.append(row_dict)
 
@@ -291,12 +295,13 @@ def process_first_pass(data: pd.DataFrame) -> pd.DataFrame:
 
     return pd.DataFrame(new_column_values)
 
+
 def wrapper(kwargs):
 
     return get_batch_results(**kwargs)
 
 
-def generate_planner_reasoning(df:pd.DataFrame,tokeniser_path):
+def generate_planner_reasoning(df: pd.DataFrame, tokeniser_path):
     # sampling_params = SamplingParams(
     # max_tokens=32000,
     # min_tokens=0,
@@ -304,53 +309,54 @@ def generate_planner_reasoning(df:pd.DataFrame,tokeniser_path):
     # skip_special_tokens=False,
     # temperature=0.0,
     # )
-    user_rows = df['role'] == 'user'
-    user_contents = df.loc[user_rows, ["chat_history","cache_query_history_current_turn"]]
-    user_indices = df[df["role"]=="user"].index.tolist()
-    df["generated_plan"]=np.nan
-    
+    user_rows = df["role"] == "user"
+    user_contents = df.loc[
+        user_rows, ["chat_history", "cache_query_history_current_turn"]
+    ]
+    user_indices = df[df["role"] == "user"].index.tolist()
+    df["generated_plan"] = np.nan
+
     # Step 3: Define the prompt creation function
     def create_prompt(df2):
         prompts = []
         for index, row in df2.iterrows():
-            prompts.append(make_reasoning_prompt(
+            prompts.append(
+                make_reasoning_prompt(
                     row["chat_history"],
                     row["cache_query_history_current_turn"],
                     tokeniser_path=tokeniser_path,
-                ))
+                )
+            )
 
         return prompts
-    
+
     # Step 4: Generate prompts only for user rows
     prompts = create_prompt(user_contents)
     batch_size = 1
     all_params = []
     all_batch_indices = []
-    for i in range(0,len(prompts),batch_size):
-        generated_code=[]
-        batch_prompts = prompts[i:i+batch_size]
-        batch_indices=user_indices[i:i+batch_size]
-        all_params.append({"prompts":batch_prompts,"tokeniser_path":tokeniser_path})
+    for i in range(0, len(prompts), batch_size):
+        generated_code = []
+        batch_prompts = prompts[i : i + batch_size]
+        batch_indices = user_indices[i : i + batch_size]
+        all_params.append({"prompts": batch_prompts, "tokeniser_path": tokeniser_path})
         all_batch_indices.append(batch_indices)
-        #code = get_batch_results(batch_prompts,tokeniser_path)
+        # code = get_batch_results(batch_prompts,tokeniser_path)
         # generated_code=[]
         # for i in code:
         #     generated_code.append(i['text_output'])
         # df.loc[batch_indices,"generated_plan"] = generated_code
     responses = thread_map(wrapper, all_params, max_workers=1)
     for i in range(len(responses)):
-        code=[]
+        code = []
         # code_str = responses[i].choices[0].message.content
         code_str = responses[i].text
         code.append(code_str)
         index = all_batch_indices[i]
-        for idx,val in zip(index,code):
-            df.loc[idx,"generated_plan"] = val
+        for idx, val in zip(index, code):
+            df.loc[idx, "generated_plan"] = val
 
     return df
-        
-    
-    
 
 
 def process_second_pass(new_data: pd.DataFrame, tokeniser_path: str) -> pd.DataFrame:
@@ -472,7 +478,7 @@ def process_and_save_file(
     # ]
     # # Save processed data
 
-    new_data2 = generate_planner_reasoning(new_data,tokeniser_path)
+    new_data2 = generate_planner_reasoning(new_data, tokeniser_path)
     output_file = os.path.join(output_dir, f"{base_filename}_original.csv")
     new_data2.to_csv(output_file, index=False)
     print(f"Saved reasoning prompt to: {output_file}")
@@ -494,9 +500,7 @@ def process_and_save_file(
 def main():
     """Main function to process all CSV files in a directory."""
     input_dir = os.getenv("INPUT_DIR")
-    output_dir_root = (
-        "/workspace/outputs_geimini"
-    )
+    output_dir_root = "/workspace/outputs_geimini"
     planning_dir_root = output_dir_root
     tokeniser_path = (
         "/home/jovyan/llm-experiments-no-cache/model_zoo/simplescaling_s1.1-32B"
