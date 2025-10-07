@@ -4,7 +4,7 @@ from datetime import datetime
 
 import pandas as pd
 
-from data.ontology.restaurant import DIETARY_OPTIONS
+from t1.data.ontology.restaurant import DIETARY_OPTIONS
 from t1.tools.schema.filter_restaurants import FilterRestaurantsInputModel
 from t1.tools.schema.search_output import SearchResultsOutputModel
 

@@ -2,7 +2,7 @@ from typing import Union
 
 from pydantic import BaseModel, ConfigDict, Field
 
-from src.tools.schema.search_output import SearchResultsOutputModel
+from t1.tools.schema.search_output import SearchResultsOutputModel
 
 
 class GetCacheInputModel(BaseModel):

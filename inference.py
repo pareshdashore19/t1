@@ -349,8 +349,7 @@ def generate_planner_reasoning(df: pd.DataFrame, tokeniser_path):
     responses = thread_map(wrapper, all_params, max_workers=1)
     for i in range(len(responses)):
         code = []
-        # code_str = responses[i].choices[0].message.content
-        code_str = responses[i].text
+        code_str = responses[i].output_text
         code.append(code_str)
         index = all_batch_indices[i]
         for idx, val in zip(index, code):

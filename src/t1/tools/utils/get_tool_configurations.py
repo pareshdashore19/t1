@@ -4,7 +4,7 @@ from typing import Dict, List, Union, get_args, get_origin
 
 from pydantic_core import PydanticUndefined
 
-from src.tools.utils.output_templates import (
+from t1.tools.utils.output_templates import (
     ARGS_TEMPLATE_DEFAULT,
     ARGS_TEMPLATE_NO_DEFAULT,
     TOOL_CONFIG_TEMPLATE,

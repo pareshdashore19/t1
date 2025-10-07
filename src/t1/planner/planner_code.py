@@ -11,23 +11,23 @@ import time
 from transformers import AutoTokenizer
 from typing import Dict, List
 
-from src.tools.filter_attractions import filter_attractions
-from src.tools.filter_flights import filter_flights
-from src.tools.filter_hotels import filter_hotels
-from src.tools.filter_restaurants import filter_restaurants
-from src.tools.find_nearest import search_nearest
-from src.tools.search_attractions import search_attractions
-from src.tools.search_flights import search_flights
-from src.tools.search_hotels import search_hotels
-from src.tools.search_restaurants import search_restaurants
-from src.tools.find_nearest import search_nearest
-from src.tools.seek_information import seek_information
-from src.tools.adjust_date import adjust_date
-from src.tools.sort_results import sort_results
-from src.tools.cache import get_results_from_cache, save_to_cache
-from src.tools.utils.get_tool_configurations import configure_tools_definitions
+from t1.tools.filter_attractions import filter_attractions
+from t1.tools.filter_flights import filter_flights
+from t1.tools.filter_hotels import filter_hotels
+from t1.tools.filter_restaurants import filter_restaurants
+from t1.tools.find_nearest import search_nearest
+from t1.tools.search_attractions import search_attractions
+from t1.tools.search_flights import search_flights
+from t1.tools.search_hotels import search_hotels
+from t1.tools.search_restaurants import search_restaurants
+from t1.tools.find_nearest import search_nearest
+from t1.tools.seek_information import seek_information
+from t1.tools.adjust_date import adjust_date
+from t1.tools.sort_results import sort_results
+from t1.tools.cache import get_results_from_cache, save_to_cache
+from t1.tools.utils.get_tool_configurations import configure_tools_definitions
 
-from src.planner.planner_utils import (
+from t1.planner.planner_utils import (
     few_shot_examples,few_shot_examples_2
 )
 
@@ -378,51 +378,45 @@ def get_batch_results(prompts,tokeniser_path):
     CLIENT_RETRIES = 3
 
 
-    # from openai import OpenAI
+    from openai import OpenAI
     
-    # model_id = "deepseek-reasoner"
+    model_id = "gpt-5-mini"
     # if "deepseek" in model_id:
     #     base_url = "https://api.deepseek.com"
     # else:
     #     base_url = "https://api.openai.com/v1/"
-    # openai_client = OpenAI(base_url=base_url)
+    client = OpenAI()
+    for attempt in range(CLIENT_RETRIES):
+        try:
 
-    # for attempt in range(CLIENT_RETRIES):
-    #     try:
-    #         response = openai_client.chat.completions.create(
-    #             model=model_id,
-    #             messages=prompts[0],
-    #             service_tier="flex",
-    #             reasoning_effort="low",
-    #             seed=42
-    #         )
-    #     except Exception as e:
-    #         logging.warning("Error calling OpenAI API:")
+            response = client.responses.create(model=model_id,input=prompts[0],reasoning={"effort": "low"})
+        except Exception as e:
+            logging.warning("Error calling OpenAI API:")
 
     #         time.sleep(61)
-    from google import genai
-    from google.genai import types
+    # from google import genai
+    # from google.genai import types
     
-    # The client gets the API key from the environment variable `GEMINI_API_KEY`.
-    client = genai.Client()
-    for i in range(3):
-        try:
+    # # The client gets the API key from the environment variable `GEMINI_API_KEY`.
+    # client = genai.Client()
+    # for i in range(3):
+    #     try:
         
-            response = client.models.generate_content(
-                model="gemini-2.5-pro",
-                contents=prompts[0],
-                config=types.GenerateContentConfig(
-                    thinking_config=types.ThinkingConfig(thinking_budget=-1)
-                    # Turn off thinking:
-                    # thinking_config=types.ThinkingConfig(thinking_budget=0)
-                    # Turn on dynamic thinking:
-                    # thinking_config=types.ThinkingConfig(thinking_budget=-1)
-                ),
-            )
-            break
-        except Exception as e:
-            logging.warning("Error calling geimini API:")
-            time.sleep(61)
+    #         response = client.models.generate_content(
+    #             model="gemini-2.5-pro",
+    #             contents=prompts[0],
+    #             config=types.GenerateContentConfig(
+    #                 thinking_config=types.ThinkingConfig(thinking_budget=-1)
+    #                 # Turn off thinking:
+    #                 # thinking_config=types.ThinkingConfig(thinking_budget=0)
+    #                 # Turn on dynamic thinking:
+    #                 # thinking_config=types.ThinkingConfig(thinking_budget=-1)
+    #             ),
+    #         )
+    #         break
+    #     except Exception as e:
+    #         logging.warning("Error calling geimini API:")
+    #         time.sleep(61)
 
     
     

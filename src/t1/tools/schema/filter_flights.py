@@ -3,7 +3,7 @@ from typing import Any, ClassVar, List, Optional
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
-from src.tools.schema.search_output import SearchResultsOutputModel
+from t1.tools.schema.search_output import SearchResultsOutputModel
 
 
 class FilterFlightsInputModel(BaseModel):

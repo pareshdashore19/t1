@@ -14,7 +14,15 @@ classifiers = [
 ]
 license = {text = "MIT"}
 dependencies = [
-  "typer"
+  "typer",
+  "transformers",
+  "pydantic",
+  "pandas",
+  "jinja2",
+  "google-genai",
+  "sacrebleu",
+  "torchmetrics",
+  "openai",
 ]
 requires-python = ">= 3.10"
 

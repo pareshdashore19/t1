@@ -2,7 +2,7 @@ from typing import Optional
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
-from src.tools.schema.search_output import SearchResultsOutputModel
+from t1.tools.schema.search_output import SearchResultsOutputModel
 
 
 class SortResultsInputModel(BaseModel):
