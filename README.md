@@ -1,18 +1,131 @@
-# t1
+# 🧠 T1 Agent – Multi-Domain Travel Dataset Inference and Evaluation
 
-![PyPI version](https://img.shields.io/pypi/v/t1.svg)
-[![Documentation Status](https://readthedocs.org/projects/t1/badge/?version=latest)](https://t1.readthedocs.io/en/latest/?version=latest)
+This repository provides the code and setup instructions for running inference and evaluation of the **T1 Agent** using the **multi-domain travel T1 dataset**.  
+For detailed information, refer to the paper here:  
+📄 [T1: A Tool-Oriented Conversational Dataset for Multi-Turn Agentic Planning](https://arxiv.org/abs/2505.16986)
 
-Inference code T1 Agents inference results on T1 dataset
+---
 
-* PyPI package: https://pypi.org/project/t1/
-* Free software: MIT License
-* Documentation: https://t1.readthedocs.io.
+## ⚙️ Environment Setup
 
-## Features
+Create and activate a conda environment:
 
-* TODO
+```bash
+conda create -n t1 python=3.11 -y
+conda activate t1
+```
 
-## Credits
+Then, install the dependencies in editable mode:
 
-This package was created with [Cookiecutter](https://github.com/audreyfeldroy/cookiecutter) and the [audreyfeldroy/cookiecutter-pypackage](https://github.com/audreyfeldroy/cookiecutter-pypackage) project template.
+```bash
+pip install -e .
+```
+
+After installation, ensure the environment is activated before running inference:
+
+```bash
+conda activate t1
+```
+
+---
+
+## 📦 Dataset Setup
+
+Download the dataset from the following link:
+
+👉 [https://a_place_holder_link](https://a_place_holder_link)
+
+After extracting, the dataset folder should look like this:
+
+```
+dataset/
+├── ontology/
+│   ├── single-domain/
+│   │   ├── t1_attraction_data.csv
+│   │   ├── t1_flight_data.csv
+│   │   ├── t1_hotel_data.csv
+│   │   └── t1_restaurant_data.csv
+│   │
+│   ├── multi-domain/
+│   │   ├── t1_hotel_attraction_data.csv
+│   │   ├── t1_hotel_restaurant_data.csv
+│   │   └── t1_restaurant_attraction_data.csv
+│   │
+│   └── miscellaneous/
+│       ├── t1_all_airports.csv
+│       └── t1_city_neighborhoods.csv
+│
+└── inference_dataset/
+    ├── attraction/
+    ├── flight/
+    ├── flighthotel/
+    ├── flighthotelattraction/
+    ├── flighthotelrestaurant/
+    ├── hotel/
+    ├── hotelattraction/
+    ├── hotelrestaurant/
+    └── restaurant/
+```
+
+---
+
+## 🌍 Environment Variables Setup
+
+Before running inference, export the required environment variables in your terminal (adjust the paths accordingly):
+
+Make sure to **activate the environment first**:
+
+```bash
+conda activate t1
+```
+
+Then export the dataset paths and API key:
+
+```bash
+export OPENAI_API_KEY=your_openai_api_key_here
+
+export ALL_AIRPORTS=path_to/t1_all_airports.csv
+export ALL_HOTELS=path_to/t1_hotel_data.csv
+export ALL_RESTAURANTS=path_to/t1_restaurant_data.csv
+export ALL_ATTRACTIONS=path_to/t1_attraction_data.csv
+export HOTEL_ATTRACTIONS=path_to/t1_hotel_attraction_data.csv
+export HOTEL_RESTAURANTS=path_to/t1_hotel_restaurant_data.csv
+export RESTAURANT_ATTRACTIONS=path_to/t1_restaurant_attraction_data.csv
+export ALL_FLIGHTS=path_to/t1_flight_data.csv
+export INPUT_DIR=path_to/inference_dataset
+export OUTPUT_DIR=path_to/output_directory
+```
+
+---
+
+## 🚀 Running Inference
+
+Once the environment variables are set, run the inference script:
+
+```bash
+python inference.py
+```
+
+This inference uses the **GPT-5-mini** model for reasoning and response generation.  
+The inference and evaluation results will be saved in the directory you specified in `OUTPUT_DIR`.
+
+---
+
+## 🧩 Citation
+
+If you use this repository or dataset in your research, please cite the paper:
+
+```bibtex
+@article{dashore2025t1,
+  title={T1: A Tool-Oriented Conversational Agent for Multi-Domain Travel Planning},
+  author={Amartya Chakraborty, Paresh Dashore, Nadia Bathaee, Anmol Jain, Anirban Das, Shi-Xiong Zhang, Sambit Sahu, Milind Naphade, Genta Indra Winata},
+  journal={arXiv preprint arXiv:2505.16986},
+  year={2025}
+}
+```
+
+---
+
+## 📧 Contact
+
+For questions or collaborations, feel free to reach out via GitHub issues or email.
