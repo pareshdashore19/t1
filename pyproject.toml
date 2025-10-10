@@ -23,6 +23,7 @@ dependencies = [
   "sacrebleu",
   "torchmetrics",
   "openai",
+  "tqdm",
 ]
 requires-python = ">= 3.10"
 

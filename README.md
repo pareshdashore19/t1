@@ -106,8 +106,52 @@ Once the environment variables are set, run the inference script:
 python inference.py
 ```
 
-This inference uses the **GPT-5-mini** model for reasoning and response generation.  
+This inference uses the **GPT-5-mini** model for reasoning and response generation.
 The inference and evaluation results will be saved in the directory you specified in `OUTPUT_DIR`.
+
+---
+
+## 📊 Running Evaluation
+
+After running inference, you can evaluate the model outputs using the automated evaluation pipeline.
+
+### Prerequisites
+
+Make sure all environment variables from the inference setup are still set (dataset paths and API keys).
+
+### Running the Evaluation Pipeline
+
+The evaluation pipeline consists of three stages:
+
+1. **Process Model Output**: Executes ground truth and generated plans to extract tool calls and cache states
+2. **Generate Evaluation Metrics**: Computes tool calling metrics, parameter accuracy, and BLEU scores
+3. **Compute Aggregate Metrics**: Aggregates results per domain into a final CSV summary
+
+To run the complete evaluation pipeline:
+
+```bash
+# Make the script executable (first time only)
+chmod +x evaluation/run_evaluation.sh
+
+# Run evaluation on your model output directory
+./evaluation/run_evaluation.sh /path/to/your/model/output
+```
+
+The script will create the following output structure:
+```
+processed_output/        # Intermediate processed outputs
+eval_output/             # Evaluation files per domain
+metrics/                 # Final aggregated metrics CSV
+```
+
+### Output
+
+The final metrics will be saved in `metrics/<model_name>_metrics.csv` with per-domain evaluation results including:
+- Code success rate
+- Tool calling precision, recall, F1, and accuracy
+- Tool parameter metrics
+- Cache summary exact match scores
+- SacreBLEU scores for information seeking
 
 ---
 
