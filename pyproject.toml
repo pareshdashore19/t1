@@ -24,6 +24,8 @@ dependencies = [
   "torchmetrics",
   "openai",
   "tqdm",
+  "huggingface_hub",
+  "hf_transfer",
 ]
 requires-python = ">= 3.10"
 
