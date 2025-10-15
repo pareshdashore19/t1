@@ -37,7 +37,7 @@ Download the T1 dataset which is present in the following link:
 
 The dataset could be dowloaded by running
 ```bash
-pip install download_dataset.py
+python download_dataset.py
 ```
 
 After downloading, the dataset folder should look like this:
