@@ -88,16 +88,16 @@ Then export the dataset paths and API key:
 ```bash
 export OPENAI_API_KEY=your_openai_api_key_here
 
-export ALL_AIRPORTS=path_to/t1_all_airports.csv
-export ALL_HOTELS=path_to/t1_hotel_data.csv
-export ALL_RESTAURANTS=path_to/t1_restaurant_data.csv
-export ALL_ATTRACTIONS=path_to/t1_attraction_data.csv
-export HOTEL_ATTRACTIONS=path_to/t1_hotel_attraction_data.csv
-export HOTEL_RESTAURANTS=path_to/t1_hotel_restaurant_data.csv
-export RESTAURANT_ATTRACTIONS=path_to/t1_restaurant_attraction_data.csv
-export ALL_FLIGHTS=path_to/t1_flight_data.csv
-export INPUT_DIR=path_to/inference_dataset
-export OUTPUT_DIR=path_to/output_directory
+export ALL_AIRPORTS=<path_to/t1_all_airports.csv>
+export ALL_HOTELS=<path_to/t1_hotel_data.csv>
+export ALL_RESTAURANTS=<path_to/t1_restaurant_data.csv>
+export ALL_ATTRACTIONS=<path_to/t1_attraction_data.csv>
+export HOTEL_ATTRACTIONS=<path_to/t1_hotel_attraction_data.csv>
+export HOTEL_RESTAURANTS=<path_to/t1_hotel_restaurant_data.csv>
+export RESTAURANT_ATTRACTIONS=<path_to/t1_restaurant_attraction_data.csv>
+export ALL_FLIGHTS=<path_to/t1_flight_data.csv>
+export INPUT_DIR=<path_to/inference_dataset>
+export OUTPUT_DIR=<path_to/output_directory>
 ```
 
 ---

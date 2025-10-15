@@ -515,4 +515,3 @@ save_to_cache(key="filtered_hotels_2", value=filtered_hotels_2)
 </CODE>
 
 """
-

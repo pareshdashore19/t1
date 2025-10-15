@@ -80,7 +80,7 @@ def filter_attractions(
         SearchResultsOutputModel: Output object which contains the resulting attractions as well as the summary.
     """
     search_input = FilterAttractionsInputModel.model_validate(kwargs)
-    
+
     search_input_filtered = {
         k: v for k, v in search_input.dict().items() if v is not None
     }

@@ -26,11 +26,13 @@ from t1.tools.sort_results import sort_results
 from t1.tools.cache import get_results_from_cache, save_to_cache
 from t1.tools.utils.get_tool_configurations import configure_tools_definitions
 
-from t1.planner.planner_utils import (
-    few_shot_examples,few_shot_examples_2
+from t1.planner.planner_utils import few_shot_examples, few_shot_examples_2
+
+logging.basicConfig(
+    format="%(asctime)s - %(levelname)s - %(message)s", level=logging.INFO
 )
 
-logging.basicConfig(format='%(asctime)s - %(levelname)s - %(message)s', level=logging.INFO)
+
 def _configure_domain_tools() -> str:
     """Configure tools ."""
 
@@ -60,13 +62,16 @@ def _configure_domain_tools() -> str:
     # Get tool configuration
     return configure_tools_definitions(all_tools)
 
-all_tools_config=_configure_domain_tools()
+
+all_tools_config = _configure_domain_tools()
+
+
 def prompt_reasoning_final(conversation, cache_for_conversation):
-        system_prompt = f"""
+    system_prompt = f"""
 You are an expert AI travel planner and your responsibility is to generate Python code using APIs or Tools. 
         """
-    
-        user_prompt = f"""
+
+    user_prompt = f"""
 Your task is to generate a Python code based on a conversation between the user and the assistant, where the last turn is from the user.
 The code typically involves calling one or more tools (functions) to help the user in planning their travel request.
 In the Python code, you need to use the following tools:
@@ -104,13 +109,10 @@ The python code should be within the <CODE> </CODE> tags. Note while generating 
 
 Given the provided conversation and cache summary, generate a Python code for the last user turn.
 """
-    
 
-        messages= system_prompt+"\n"+user_prompt
-    
-        
-        return messages
+    messages = system_prompt + "\n" + user_prompt
 
+    return messages
 
 
 def make_reasoning_prompt(conversation, cache_for_conversation):
@@ -119,24 +121,25 @@ def make_reasoning_prompt(conversation, cache_for_conversation):
 
     return prompt_message
 
+
 def get_batch_results(prompts):
-   
+
     CLIENT_RETRIES = 3
 
-
     from openai import OpenAI
-    
+
     model_id = "gpt-5-mini"
 
     client = OpenAI()
     for attempt in range(CLIENT_RETRIES):
         try:
-            response = client.responses.create(model=model_id,input=prompts[0],reasoning={"effort": "low"})
+            response = client.responses.create(
+                model=model_id, input=prompts[0], reasoning={"effort": "low"}
+            )
             # get the output string
-            response= response.output_text
+            response = response.output_text
             break
         except Exception as e:
             logging.warning("Error calling OpenAI API:")
 
-    
     return response

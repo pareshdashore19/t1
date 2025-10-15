@@ -86,7 +86,6 @@ def extract_actual_tool_calls(row: pd.Series) -> Tuple[Optional[List], Optional[
     return extracted_tool_calls, count_tool_calls
 
 
-
 def process_first_pass(data: pd.DataFrame) -> pd.DataFrame:
     """
     Process the first pass: add chat_history, cache history, and error columns.
@@ -167,8 +166,7 @@ def generate_planner_reasoning(df: pd.DataFrame):
         for index, row in df2.iterrows():
             prompts.append(
                 make_reasoning_prompt(
-                    row["chat_history"],
-                    row["cache_query_history_current_turn"]
+                    row["chat_history"], row["cache_query_history_current_turn"]
                 )
             )
 
@@ -231,10 +229,7 @@ def process_second_pass(new_data: pd.DataFrame) -> pd.DataFrame:
                 code = ""
                 reasoning = ""
             elif "user" in role:
-                plan = plan_generation(
-                    row["chat_history"],
-                    planner_cache_curr_turn
-                )
+                plan = plan_generation(row["chat_history"], planner_cache_curr_turn)
                 code = extract_code_from_generated_plan(plan)
                 reasoning = extract_reasoning_from_generated_plan(plan)
             else:
@@ -267,9 +262,7 @@ def process_second_pass(new_data: pd.DataFrame) -> pd.DataFrame:
     return pd.DataFrame(new_col)
 
 
-def process_and_save_file(
-    input_file: str, output_dir: str, planning_dir: str
-) -> None:
+def process_and_save_file(input_file: str, output_dir: str, planning_dir: str) -> None:
     """
     Process a single CSV file and save the results.
 
@@ -306,7 +299,7 @@ def main():
     )
 
     for domain_folder in os.listdir(input_dir):
-        if domain_folder!="attraction":
+        if domain_folder != "attraction":
             continue
         domain_path = os.path.join(input_dir, domain_folder)
         if not os.path.isdir(domain_path):
