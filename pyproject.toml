@@ -16,7 +16,7 @@ license = {text = "MIT"}
 dependencies = [
   "typer",
   "transformers",
-  "pydantic",
+  "pydantic==2.10.6",
   "pandas",
   "jinja2",
   "google-genai",
@@ -25,7 +25,7 @@ dependencies = [
   "openai",
   "tqdm",
   "huggingface_hub",
-  "hf_transfer",
+  "hf_transfer"
 ]
 requires-python = ">= 3.10"
 

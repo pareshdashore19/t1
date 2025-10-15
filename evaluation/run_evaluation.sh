@@ -42,22 +42,6 @@ mkdir -p "$PROCESSED_OUTPUT_DIR"
 mkdir -p "$EVAL_OUTPUT_DIR"
 mkdir -p "$FINAL_METRICS_DIR"
 
-# --- Environment Setup ---
-
-# Add the 'src' directory to the Python path to make the 't1' package importable.
-export PYTHONPATH=$(pwd)/src
-echo "PYTHONPATH set to: ${PYTHONPATH}"
-
-# IMPORTANT: Set these environment variables to the paths of your data files.
-export ALL_HOTELS=/path/to/your/hotel_data.csv
-export ALL_RESTAURANTS=/path/to/your/restaurant_data.csv
-export ALL_FLIGHTS=/path/to/your/generated_flights_return.csv
-export ALL_ATTRACTIONS=/path/to/your/attractions_data.csv
-export HOTEL_ATTRACTIONS=/path/to/your/hotel_attractions_dataset.csv
-export HOTEL_RESTAURANTS=/path/to/your/hotel_restaurants_dataset.csv
-export RESTAURANT_ATTRACTIONS=/path/to/your/restaurant_attractions_dataset.csv
-export ALL_AIRPORTS=/path/to/your/all_airports.csv
-echo "Data file environment variables have been set. Please ensure they are correct."
 
 # --- Execution Pipeline ---
 

@@ -31,11 +31,16 @@ conda activate t1
 
 ## 📦 Dataset Setup
 
-Download the dataset from the following link:
+Download the T1 dataset which is present in the following link:
 
-👉 [https://a_place_holder_link](https://a_place_holder_link)
+👉 [https://huggingface.co/datasets/capitalone/T1](https://huggingface.co/datasets/capitalone/T1)
 
-After extracting, the dataset folder should look like this:
+The dataset could be dowloaded by running
+```bash
+pip install download_dataset.py
+```
+
+After downloading, the dataset folder should look like this:
 
 ```
 dataset/
@@ -55,16 +60,15 @@ dataset/
 │       ├── t1_all_airports.csv
 │       └── t1_city_neighborhoods.csv
 │
-└── inference_dataset/
-    ├── attraction/
-    ├── flight/
-    ├── flighthotel/
-    ├── flighthotelattraction/
-    ├── flighthotelrestaurant/
-    ├── hotel/
-    ├── hotelattraction/
-    ├── hotelrestaurant/
-    └── restaurant/
+├── attraction/
+├── flight/
+├── flighthotel/
+├── flighthotelattraction/
+├── flighthotelrestaurant/
+├── hotel/
+├── hotelattraction/
+├── hotelrestaurant/
+└── restaurant/
 ```
 
 ---
@@ -146,7 +150,7 @@ metrics/                 # Final aggregated metrics CSV
 
 ### Output
 
-The final metrics will be saved in `metrics/<model_name>_metrics.csv` with per-domain evaluation results including:
+The final metrics will be saved in `metrics/<output>_metrics.csv` with per-domain evaluation results including:
 - Code success rate
 - Tool calling precision, recall, F1, and accuracy
 - Tool parameter metrics
