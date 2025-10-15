@@ -299,7 +299,7 @@ def main():
     )
 
     for domain_folder in os.listdir(input_dir):
-        if domain_folder != "attraction":
+        if domain_folder == "ontology":
             continue
         domain_path = os.path.join(input_dir, domain_folder)
         if not os.path.isdir(domain_path):

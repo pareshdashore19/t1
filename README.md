@@ -113,6 +113,15 @@ python inference.py
 This inference uses the **GPT-5-mini** model for reasoning and response generation.
 The inference and evaluation results will be saved in the directory you specified in `OUTPUT_DIR`.
 
+The current inference in this project runs using **`gpt-5-mini`**.  
+If you wish to use a different model, you can modify the code in the following file:
+
+```
+t1/src/t1/planner/planner_code.py
+```
+
+Specifically, update the inference code inside the `get_batch_results` function.
+
 ---
 
 ## 📊 Running Evaluation
