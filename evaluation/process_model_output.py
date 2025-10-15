@@ -24,8 +24,12 @@ from t1.tools.search_attractions import search_attractions
 from t1.tools.search_flights import search_flights
 from t1.tools.search_hotels import search_hotels
 from t1.tools.search_restaurants import search_restaurants
+from t1.tools.find_nearest import search_nearest
 from t1.tools.seek_information import seek_information
+from t1.tools.adjust_date import adjust_date
 from t1.tools.sort_results import sort_results
+from t1.tools.cache import get_results_from_cache, save_to_cache
+from t1.tools.utils.get_tool_configurations import configure_tools_definitions
 
 
 def extract_code_from_generated_plan(plan: str) -> str:
